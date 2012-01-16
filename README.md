@@ -20,17 +20,17 @@ Backupdir will be created in the current directory you are in.
 
 ##Examples
 --------------------------------
-** Backup a file named foo **
+**Backup a file named foo**
 
 ``` [user@hostname opt]$ bu -f foo ```
 
 
-** Backup directory named bar **
+**Backup directory named bar**
 
 ``` [user@hostname opt]$ bu -f bar/ ```
 
 
-** Backup a file named foo and a dir named bar to the backup location audit **
+**Backup a file named foo and a dir named bar to the backup location audit**
 
 ``` [user@hostname opt]$ bu -f foo bar/ -D audit ```
 
