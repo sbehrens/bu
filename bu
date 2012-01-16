@@ -1,10 +1,12 @@
-#!/usr/bin/env 
+#!/usr/bin/env python
+
+# Author: Scott Behrens (arbit)
 
 import argparse
 import sys
 import tarfile
 import time
-from os import mkdir,path
+from os import mkdir,path,getcwd
 
 class Backup:
 
@@ -12,31 +14,30 @@ class Backup:
         '''Initalize all options and ensure correct command line arguments are passed'''
 
         # Initalize parser and set arguments needed to run utlitiy
-        parser = argparse.ArgumentParser(usage="bu [options] filename (dirname)", description="File and Diretory Backup Utility")
-        parser.add_argument('-f', metavar='files', nargs='+', help='filename(s) to backup', default=None)
+        parser = argparse.ArgumentParser(usage="bu [options] filename (dirname)", description="file and diretory backup utility")
+        parser.add_argument('-f', metavar='files', nargs='+', help='filename(s) or directory(s) to backup', default=None)
         parser.add_argument('-D', metavar="backupdir", default="BACKUP", required=False,help="backup dir name (default BACKUP)")
 
         args = parser.parse_args()
-        self.timestamp = time.strftime("%I:%M:%S%p_%b_%d_%Y", time.localtime())
+        self.timestamp = time.strftime("%I.%M.%S%p_%b_%d_%Y", time.localtime())
         #self.timestamp = '123'
 
         # If no files or directories are passed, print help and exit
-        if args.d == None and args.f == None:
+        if args.f == None:
             parser.print_help()
             sys.exit(1)
         
         # Parse out the args
         self.filenames = args.f
-        self.dirs = args.d
-        self.backup_dir = args.D
+        self.backup_dir = getcwd() + '/' + args.D 
 
     def backup_directory(self):
         '''Create a directory for backing up files if it does not already exist'''
         try:
-            if path.isdir('./' + self.backup_dir):
+            if path.isdir(self.backup_dir):
                 return
             else:
-                mkdir('./' + self.backup_dir, 0755)
+                mkdir(self.backup_dir, 0755)
                 return 
         except Exception, e:
             raise e
@@ -45,7 +46,7 @@ class Backup:
         '''Create a timestamped tar.bz file in the backup directory'''
         for filename in self.filenames:
             try:
-                tar = tarfile.open(self.backup_dir + '/' + filename.strip('/') + '.' + self.timestamp + '.tar.bz', 'w:bz2')
+                tar = tarfile.open(self.backup_dir + '/' + filename.strip('/') + '.' + self.timestamp + '.tar.bz2', 'w:bz2')
                 tar.add(filename)
                 tar.close()
             except Exception, e:
