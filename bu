@@ -20,7 +20,6 @@ class Backup:
 
         args = parser.parse_args()
         self.timestamp = time.strftime("%I.%M.%S%p_%b_%d_%Y", time.localtime())
-        #self.timestamp = '123'
 
         # If no files or directories are passed, print help and exit
         if args.f == None:
