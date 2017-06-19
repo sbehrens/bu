@@ -1,7 +1,7 @@
 #bu
 ================================
 
-Utility for quickly backing up files and directories.  Copy 'bu' your path and set to execute. 
+Utility for quickly backing up files and directories.  Copy 'bu' your path and set to execute. xoxb-easter-egg
 
 bu creates a directory named BACKUP in the folder the files and/or folders you are backing up.  bu bzip's these files with a timestamp.
 
